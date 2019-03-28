@@ -5,15 +5,21 @@ use std::io;
 fn main() {
     let secret_number = rand::thread_rng().gen_range(1, 101);
     let mut number_of_guesses = 1;
+    let input = io::stdin();
+
+    println!("Welcome to guessing game! Type 'exit' to exit at any time.");
 
     loop {
         println!("Enter a number: ");
 
         let mut guess = String::new();
 
-        io::stdin()
-            .read_line(&mut guess)
-            .expect("Failed to read line!");
+        input.read_line(&mut guess).expect("Failed to read line!");
+
+        if guess.trim() == "exit" {
+            println!("Bye!");
+            break;
+        }
 
         let guess: u32 = match guess.trim().parse() {
             Ok(n) => n,
